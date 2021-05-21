@@ -1,0 +1,87 @@
+<!doctype html><meta charset=utf-8>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="/static/css/materialize.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="theme-color" content="#FFFFFF"/>
+        <link rel="manifest" href="/manifest.json">
+        <link rel="apple-touch-icon" href="/static/img/icon-256x256.png">        
+        <link rel="apple-touch-icon" sizes="192x192" href="/static/img/icon-192x192.png">
+        <link rel="apple-touch-icon" sizes="384x384" href="/static/img/icon-384x384.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/static/img/icon-512x512.png">
+    </head>
+
+    <body>
+        <div class="container">
+            <h3 class="grey-text text-darken-2">
+                <img src="/static/img/icon-192x192.png" width="50px" alt="logo" class="right"/>    
+                Qard
+            </h3>
+            
+            <div id="intro" class="flow-text" style="padding-top: 1em; padding-bottom: 2em;">
+                <p>
+                    Qard is a simple QR Code business card generator. Click on 
+                    the MAKE button below to start making a business card for yourself!
+                </p>
+                <p>
+                    To share your business card, just show the QR code to anyone with 
+                    a QR code on his phone and he or she will be able to store your business
+                    card particulars in his contacts list.    
+                </p>
+                <p>
+                    The QR code is stored locally in your phone only, Qard does not store
+                    any of your particulars anywhere.
+                </p>
+                <p>
+                    To make this a permanent fixture on your phone, choose to 'Add to Home Screen'.
+                </p>                
+            </div>
+            <div class="row center hide" id="qard-container">
+                <img id="qard" class="responsive-img" src="" alt="qrcode"/>                
+            </div>            
+            <div class="row center">                
+                <a class="btn grey darken-2" onclick="makeForm();">Make</a>
+                <a class="btn grey lighten-1 hide" id="clear-btn" onclick="clearQard();">Clear</a>
+            </div>
+
+
+        </div>        
+        <script src="/static/js/jquery-3.5.1.min.js"></script>
+        <script src="/static/js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.sidenav').sidenav();
+                if (localStorage.getItem("qardb64") != null) {
+                    $('#qard-container').removeClass("hide");
+                    $('#clear-btn').removeClass("hide");
+                    $('#intro').addClass("hide");
+                    $('#qard').attr("src", "data:image/png;base64," + localStorage.getItem("qardb64"));
+                }
+            });
+
+            function clearQard() {
+                localStorage.removeItem("qardb64");
+                $('#qard-container').addClass("hide");
+                $('#clear-btn').addClass("hide");
+                $('#intro').removeClass("hide");
+            }
+
+            function makeForm() {
+                window.location.href = "/makeform";
+            }
+        </script>
+        <script>
+            window.addEventListener('load', ()=>{
+                if('serviceWorker' in navigator){
+                    try {
+                    navigator.serviceWorker.register('/sw.js');
+                    console.log("Service Worker Registered");
+                    } catch (error) {
+                    console.log("Service Worker Registration Failed");
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

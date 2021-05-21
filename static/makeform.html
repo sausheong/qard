@@ -1,0 +1,138 @@
+<!doctype html><meta charset=utf-8>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="/static/css/materialize.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <div class="container">
+            <h3 class="grey-text text-darken-2">
+                <img src="/static/img/icon-192x192.png" width="50px" alt="logo" class="right"/>
+                <a href="/" class="grey-text text-darken-2">Qard</a>
+            </h3>
+            <div class="row" style="margin-top: 3em;">
+                <form class="col s12" action="/make" id="make" method="post" enctype="multipart/form-data">
+                
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="First or given name" name="first_name" id="first_name" type="text" class="validate">
+                            <label for="first_name">First Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input placeholder="Last or family name" name="last_name" id="last_name" type="text" class="validate">
+                            <label for="last_name">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input placeholder="Display name" name="formatted_name" id="formatted_name" type="text" class="validate">
+                            <label for="formatted_name">Display Name</label>
+                        </div>                    
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="Mobile phone number" name="mobile" id="mobile" type="tel" class="validate">
+                            <label for="mobile">Mobile number</label>
+                        </div>                    
+                        <div class="input-field col s6">
+                            <input placeholder="Office phone number" name="office" id="office" type="tel" class="validate">
+                            <label for="office">Office number</label>
+                        </div>                    
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input placeholder="Email" name="email" id="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>                    
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="Work designation" name="designation" id="designation" type="text" class="validate">
+                            <label for="designation">Designation</label>
+                        </div>                    
+                        <div class="input-field col s6">
+                            <input placeholder="Organization name" name="org" id="org" type="text" class="validate">
+                            <label for="org">Organization</label>
+                        </div>                    
+                    </div>   
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input placeholder="Organization URL" name="url" id="url" type="url" class="validate">
+                            <label for="url">URL</label>
+                        </div>                    
+                    </div>
+
+                    <!-- <div class="row">
+                        <div style="padding-bottom: 0.5em;">
+                            <label for="shape">QR code shape</label>
+                            <p>
+                                <label>
+                                  <input class="with-gap" value="rectangle" name="shape" type="radio" checked/>
+                                  <span>Rectangle</span>
+                                </label>
+                                <label>
+                                  <input class="with-gap" value="circle" name="shape" type="radio" />
+                                  <span>Circle</span>
+                                </label>
+                            </p>
+                        </div>                        
+                    </div>    -->
+
+                    <div class="row">
+                        <div class="col s12">
+                            <label for="color">QR code color</label>
+                            <p>
+                                <label>
+                                  <input class="with-gap" value="#000000" name="color" type="radio" checked/>
+                                  <span>Black</span>
+                                </label>
+                                <label>
+                                  <input class="with-gap" value="#f06292" name="color" type="radio" />
+                                  <span>Pink</span>
+                                </label>
+                                <label>
+                                    <input class="with-gap" value="#03a9f4" name="color" type="radio" />
+                                    <span>Blue</span>
+                                </label>
+                                <label>
+                                    <input class="with-gap" value="#43a047" name="color" type="radio" />
+                                    <span>Green</span>
+                                </label>
+                            </p>
+                        </div>                        
+                    </div>                       
+
+                    <div class="row" style="padding-top: 0.5em; padding-bottom: 2em;">
+                        <div class="file-field input-field col s12">
+                            <div class="btn">
+                              <span>Image</span>
+                              <input type="file" name="logo" id="logo">
+                            </div>
+                            <div class="file-path-wrapper">
+                              <input class="file-path validate" type="text" placeholder="Upload a logo for your QR code">
+                            </div>
+                        </div>                            
+                    </div>
+
+                    <div class="row center">
+                        <input class="btn grey darken-2" type="submit" value="Make QR Code"/>
+                        <input class="btn amber darken-2" type="reset" value="Reset"/>
+                        <a class="btn red darken-2" onclick="window.location.href='/';">Back</a>
+                    </div>                                                                                                           
+                </form>                
+            </div>
+        </div>        
+        <script src="/static/js/jquery-3.5.1.min.js"></script>
+        <script src="/static/js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.sidenav').sidenav();
+            });            
+            $(document).ready(function(){
+                $('select').formSelect();
+            });            
+        </script>        
+    </body>
+</html>
