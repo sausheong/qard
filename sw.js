@@ -21,10 +21,9 @@ self.addEventListener('install', async event=>{
 });
 
 self.addEventListener('fetch', event => {  
-  event.respondWith(cacheFirst(event.request));
+  event.respondWith(caches.match(event.request)
+    .then(function (response) {
+      return response || fetch(event.request);
+    })
+  );
 });
-
-async function cacheFirst(req){
-  const cachedResponse = caches.match(req);
-  return cachedResponse || fetch(req);
-}
