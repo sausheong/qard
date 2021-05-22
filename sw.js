@@ -7,8 +7,7 @@ const staticAssets=[
   './static/img/icon-384x384.png',
   './static/img/icon-512x512.png',
   './static/js/jquery-3.5.1.min.js',
-  './static/js/materialize.min.js',
-  'https://fonts.googleapis.com/icon?family=Material+Icons'
+  './static/js/materialize.min.js'
 ];
 
 self.addEventListener('install', async event=>{
