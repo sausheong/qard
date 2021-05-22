@@ -40,7 +40,7 @@
             <div class="row center hide" id="qard-container">
                 <img id="qard" class="responsive-img" src="" alt="qrcode"/>                
             </div>            
-            <div class="row center">                
+            <div id="buttons" class="row center">                
                 <a class="btn grey darken-2" onclick="makeForm();">Make</a>
                 <a class="btn grey lighten-1 hide" id="clear-btn" onclick="clearQard();">Clear</a>
             </div>
@@ -57,6 +57,11 @@
                     $('#clear-btn').removeClass("hide");
                     $('#intro').addClass("hide");
                     $('#qard').attr("src", "data:image/png;base64," + localStorage.getItem("qardb64"));
+                }
+                if (navigator.onLine) {
+                    $('#buttons').removeClass("hide");
+                } else {
+                    $('#buttons').addClass("hide");
                 }
             });
 
