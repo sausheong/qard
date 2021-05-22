@@ -58,11 +58,13 @@ func index(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, nil)
 }
 
+// show the make form
 func makeForm(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles(dir + "/static/makeform.html")
 	t.Execute(w, nil)
 }
 
+// make a VCard and then make a QR code out of it
 func makeQRCode(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles(dir + "/static/show.html")
 	r.ParseMultipartForm(8192)
@@ -167,6 +169,7 @@ func makeQRCode(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, qrbase64)
 }
 
+// returns the sw.js file
 func serviceWorker(w http.ResponseWriter, r *http.Request) {
 	data, err := ioutil.ReadFile("sw.js")
 	if err != nil {
@@ -177,6 +180,7 @@ func serviceWorker(w http.ResponseWriter, r *http.Request) {
 	w.Write(data)
 }
 
+// returns the manifesto.json file
 func manifest(w http.ResponseWriter, r *http.Request) {
 	data, err := ioutil.ReadFile("manifest.json")
 	if err != nil {

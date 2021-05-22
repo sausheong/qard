@@ -14,7 +14,6 @@ self.addEventListener('install', async event=>{
   event.waitUntil(
     caches.open('static-cache')
       .then(function(cache) {
-        console.log('Opened cache');
         return cache.addAll(staticAssets);
       })
   );

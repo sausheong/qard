@@ -8,6 +8,7 @@
         <link rel="manifest" href="/manifest.json">
         <link rel="apple-touch-icon" href="/static/img/icon-256x256.png">        
         <link rel="apple-touch-icon" sizes="192x192" href="/static/img/icon-192x192.png">
+        <link rel="apple-touch-icon" sizes="256x256" href="/static/img/icon-256x256.png">
         <link rel="apple-touch-icon" sizes="384x384" href="/static/img/icon-384x384.png">
         <link rel="apple-touch-icon" sizes="512x512" href="/static/img/icon-512x512.png">
     </head>
@@ -51,7 +52,6 @@
         <script src="/static/js/materialize.min.js"></script>
         <script>
             $(document).ready(function(){
-                $('.sidenav').sidenav();
                 if (localStorage.getItem("qardb64") != null) {
                     $('#qard-container').removeClass("hide");
                     $('#clear-btn').removeClass("hide");
@@ -80,10 +80,10 @@
             window.addEventListener('load', ()=>{
                 if('serviceWorker' in navigator){
                     try {
-                    navigator.serviceWorker.register('/sw.js');
-                    console.log("Service Worker Registered");
+                        navigator.serviceWorker.register('/sw.js');
+                        console.log("Service worker registered.");
                     } catch (error) {
-                    console.log("Service Worker Registration Failed");
+                        console.log("Service worker failed to register.");
                     }
                 }
             });
