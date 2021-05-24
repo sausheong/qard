@@ -112,19 +112,24 @@ func makeQRCode(w http.ResponseWriter, r *http.Request) {
 	}
 
 	file, _, err := r.FormFile("logo")
-	var hasLogo bool
-	var pic image.Image
+	var logo image.Image
 	if err == nil {
-		b1 := make([]byte, 512)
-		_, err = file.Read(b1)
+		// find out what kind of file it is
+		detectbuf := make([]byte, 512)
+		_, err = file.Read(detectbuf)
 		if err == nil {
-			filetype := http.DetectContentType(b1)
+			filetype := http.DetectContentType(detectbuf)
+			// if it's an image file
 			if filetype == "image/jpeg" || filetype == "image/jpg" || filetype == "image/png" {
+				// rewind the file start decoding the file into an image.Image
 				file.Seek(0, io.SeekStart)
-				pic, _, err = image.Decode(file)
+				logo, _, err = image.Decode(file)
 				if err == nil {
-					hasLogo = true
+					// resize the image, logo needs to be max 1/5 of the QR code
+					logo := resize.Resize(244, 244, logo, resize.Lanczos3)
+					qroptions = append(qroptions, qrcode.WithLogoImage(logo))
 				} else {
+					qroptions = append(qroptions, qrcode.WithLogoImageFilePNG("static/img/transparent.png"))
 					log.Println("Cannot decode file - ", err)
 				}
 			} else {
@@ -133,13 +138,6 @@ func makeQRCode(w http.ResponseWriter, r *http.Request) {
 		} else {
 			log.Println("Cannot read file - ", err)
 		}
-	}
-
-	if hasLogo {
-		logo := resize.Resize(244, 244, pic, resize.Lanczos3)
-		qroptions = append(qroptions, qrcode.WithLogoImage(logo))
-	} else {
-		qroptions = append(qroptions, qrcode.WithLogoImageFilePNG("static/img/transparent.png"))
 	}
 
 	name := vcard.Name{
@@ -165,6 +163,7 @@ func makeQRCode(w http.ResponseWriter, r *http.Request) {
 	if err := qrc.SaveTo(&qrbuff); err != nil {
 		log.Printf("could not save image: %v", err)
 	}
+	// send back a bas64 encoded image
 	qrbase64 := base64.StdEncoding.EncodeToString(qrbuff.Bytes())
 	t.Execute(w, qrbase64)
 }

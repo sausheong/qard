@@ -12,16 +12,25 @@
             <a href="/" class="grey-text text-darken-2">Qard</a>
         </h3>
 
-            <div class="row">
-                <img class="responsive-img" src="data:image/png;base64,{{.}}" alt="qrcode"/>
-            </div>
+        <div class="row">
+            <p>
+                This is your Qard, please save it. The QR code is stored locally in your phone only, 
+                Qard does not store any of your particulars.
+            </p>
+            <p>
+                To make this a permanent fixture on your phone, choose to 'Add to Home Screen'.
+            </p>                
+        </div>
 
-            <div class="row center">
-                <a class="btn grey darken-2" onclick="save();">Save</a>
-                <a class="btn red darken-2" onclick="history.back();">Back</a>
-            </div>
+        <div class="row">
+            <img class="responsive-img" src="data:image/png;base64,{{.}}" alt="qrcode"/>
+        </div>
+
+        <div class="row center">
+            <a class="btn grey darken-2" onclick="save();">Save</a>
+            <a class="btn red darken-2" onclick="history.back();">Back</a>
+        </div>
             
-
         </div>        
         <script src="/static/js/jquery-3.5.1.min.js"></script>
         <script src="/static/js/materialize.min.js"></script>
