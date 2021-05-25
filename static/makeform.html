@@ -48,6 +48,12 @@
                         </div>                    
                     </div>
                     <div class="row">
+                        <div class="input-field col s12">
+                            <input placeholder="Website" name="url" id="url" type="url" class="validate">
+                            <label for="url">URL</label>
+                        </div>                    
+                    </div>
+                    <div class="row">
                         <div class="input-field col s6">
                             <input placeholder="Work designation" name="designation" id="designation" type="text" class="validate">
                             <label for="designation">Designation</label>
@@ -57,28 +63,22 @@
                             <label for="org">Organization</label>
                         </div>                    
                     </div>   
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input placeholder="Organization URL" name="url" id="url" type="url" class="validate">
-                            <label for="url">URL</label>
-                        </div>                    
-                    </div>
 
-                    <!-- <div class="row">
-                        <div style="padding-bottom: 0.5em;">
+                    <div class="row">
+                        <div class="col s12">
                             <label for="shape">QR code shape</label>
                             <p>
                                 <label>
                                   <input class="with-gap" value="rectangle" name="shape" type="radio" checked/>
-                                  <span>Rectangle</span>
+                                  <span class="black-text">Square &#9607;</span>
                                 </label>
                                 <label>
                                   <input class="with-gap" value="circle" name="shape" type="radio" />
-                                  <span>Circle</span>
+                                  <span class="black-text">Circle &#11044;</span>
                                 </label>
                             </p>
                         </div>                        
-                    </div>    -->
+                    </div>   
 
                     <div class="row">
                         <div class="col s12">
@@ -86,19 +86,19 @@
                             <p>
                                 <label>
                                   <input class="with-gap" value="#000000" name="color" type="radio" checked/>
-                                  <span>Black</span>
+                                  <span class="black-text">Black</span>
                                 </label>
                                 <label>
                                   <input class="with-gap" value="#f06292" name="color" type="radio" />
-                                  <span>Pink</span>
+                                  <span class="pink-text text-lighten-2">Pink</span>
                                 </label>
                                 <label>
                                     <input class="with-gap" value="#03a9f4" name="color" type="radio" />
-                                    <span>Blue</span>
+                                    <span class="light-blue-text">Blue</span>
                                 </label>
                                 <label>
                                     <input class="with-gap" value="#43a047" name="color" type="radio" />
-                                    <span>Green</span>
+                                    <span class="green-text text-darken-1">Green</span>
                                 </label>
                             </p>
                         </div>                        
@@ -111,7 +111,7 @@
                               <input type="file" name="logo" id="logo">
                             </div>
                             <div class="file-path-wrapper">
-                              <input class="file-path validate" type="text" placeholder="Upload a square logo (JPG or PNG only) for your QR code">
+                              <input class="file-path validate" type="text" placeholder="Upload a square logo (JPG or PNG)">
                             </div>
                         </div>                            
                     </div>

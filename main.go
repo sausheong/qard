@@ -19,7 +19,7 @@ import (
 	"github.com/emersion/go-vcard"
 	"github.com/gorilla/mux"
 	"github.com/nfnt/resize"
-	qrcode "github.com/yeqown/go-qrcode"
+	"github.com/sausheong/go-qrcode"
 )
 
 var dir string
@@ -107,6 +107,10 @@ func makeQRCode(w http.ResponseWriter, r *http.Request) {
 				card.SetValue(vcard.FieldURL, v[0])
 			case "color":
 				qroptions = append(qroptions, qrcode.WithFgColorRGBHex(v[0]))
+			case "shape":
+				if v[0] == "circle" {
+					qroptions = append(qroptions, qrcode.WithCircleShape())
+				}
 			}
 		}
 	}
@@ -153,7 +157,6 @@ func makeQRCode(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println("cannot encode card - ", err)
 	}
-
 	qrc, err := qrcode.New(cardbuff.String(), qroptions...)
 	if err != nil {
 		log.Printf("could not generate QRCode: %v", err)
