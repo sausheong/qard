@@ -133,7 +133,6 @@ func makeQRCode(w http.ResponseWriter, r *http.Request) {
 					logo := resize.Resize(244, 244, logo, resize.Lanczos3)
 					qroptions = append(qroptions, qrcode.WithLogoImage(logo))
 				} else {
-					qroptions = append(qroptions, qrcode.WithLogoImageFilePNG("static/img/transparent.png"))
 					log.Println("Cannot decode file - ", err)
 				}
 			} else {
