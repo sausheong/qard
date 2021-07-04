@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"time"
 
 	_ "image/jpeg"
@@ -36,7 +37,8 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", index)
 	r.HandleFunc("/makeform", makeForm)
-	r.HandleFunc("/make", makeQRCode)
+	r.HandleFunc("/make", makeQRCodeAndShow)
+	r.HandleFunc("/api", makeQRCodeAPI)
 	r.HandleFunc("/sw.js", serviceWorker)
 	r.HandleFunc("/manifest.json", manifest)
 
@@ -64,11 +66,7 @@ func makeForm(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, nil)
 }
 
-// make a VCard and then make a QR code out of it
-func makeQRCode(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles(dir + "/static/show.html")
-	r.ParseMultipartForm(8192)
-
+func makeQRCode(r *http.Request) bytes.Buffer {
 	card := make(vcard.Card)
 	var firstName, lastName string
 	qroptions := []qrcode.ImageOption{}
@@ -165,9 +163,26 @@ func makeQRCode(w http.ResponseWriter, r *http.Request) {
 	if err := qrc.SaveTo(&qrbuff); err != nil {
 		log.Printf("could not save image: %v", err)
 	}
-	// send back a bas64 encoded image
-	qrbase64 := base64.StdEncoding.EncodeToString(qrbuff.Bytes())
-	t.Execute(w, qrbase64)
+	// send back the bugger
+	return qrbuff
+}
+
+// make a VCard and then make a QR code out of it
+func makeQRCodeAPI(w http.ResponseWriter, r *http.Request) {
+	r.ParseMultipartForm(8192)
+	buf := makeQRCode(r)
+	w.Header().Set("Content-Type", "image/png")
+	w.Header().Set("Content-Length", strconv.Itoa(len(buf.Bytes())))
+	w.Write(buf.Bytes())
+}
+
+// make a VCard and then make a QR code out of it
+func makeQRCodeAndShow(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles(dir + "/static/show.html")
+	r.ParseMultipartForm(8192)
+	buf := makeQRCode(r)
+	base64 := base64.StdEncoding.EncodeToString(buf.Bytes())
+	t.Execute(w, base64)
 }
 
 // returns the sw.js file
